@@ -1,0 +1,44 @@
+ls -l /var/lib/ceph/mon
+ls: cannot access '/var/lib/ceph/mon': No such file or directory
+
+ls /etc/systemd/system/ceph-mon.target.wants/
+ceph-mon@pve-node3.service
+
+systemctl disable ceph-mon@pve-node3.service
+Removed /etc/systemd/system/ceph-mon.target.wants/ceph-mon@pve-node3.service.
+
+ls /etc/systemd/system/ceph-mon.target.wants/
+ls: cannot access '/etc/systemd/system/ceph-mon.target.wants/': No such file or directory
+
+pveceph init --network 10.1.1.0/24
+creating /etc/pve/priv/ceph.client.admin.keyring
+
+pveceph createmon
+unable to get monitor info from DNS SRV with service name: ceph-mon
+creating /etc/pve/priv/ceph.mon.keyring
+importing contents of /etc/pve/priv/ceph.client.admin.keyring into /etc/pve/priv/ceph.mon.keyring
+chown: cannot access '/var/lib/ceph/mon/ceph-pve-node3': No such file or directory
+error with cfs lock 'file-ceph_conf': command 'chown ceph:ceph /var/lib/ceph/mon/ceph-pve-node3' failed: exit code 1
+
+mkdir -p /var/lib/ceph/mon
+
+pveceph createmon
+unable to get monitor info from DNS SRV with service name: ceph-mon
+monmaptool: monmap file /tmp/monmap
+monmaptool: generated fsid 4d72e5e9-4e59-4875-a27f-ff273a9c007f
+epoch 0
+fsid 4d72e5e9-4e59-4875-a27f-ff273a9c007f
+last_changed 2019-09-14 11:36:10.961149
+created 2019-09-14 11:36:10.961149
+min_mon_release 0 (unknown)
+0: [v2:10.9.9.13:3300/0,v1:10.9.9.13:6789/0] mon.pve-node3
+monmaptool: writing epoch 0 to /tmp/monmap (1 monitors)
+Created symlink /etc/systemd/system/ceph-mon.target.wants/ceph-mon@pve-node3.service -> /lib/systemd/system/ceph-mon@.service.
+creating manager directory '/var/lib/ceph/mgr/ceph-pve-node3'
+creating keys for 'mgr.pve-node3'
+unable to open file '/var/lib/ceph/mgr/ceph-pve-node3/keyring.tmp.2235636' - No such file or directory
+
+pveceph createmgr
+creating manager directory '/var/lib/ceph/mgr/ceph-pve-node3'
+creating keys for 'mgr.pve-node3'
+unable to open file '/var/lib/ceph/mgr/ceph-pve-node3/keyring.tmp.2235958' - No such file or directory
